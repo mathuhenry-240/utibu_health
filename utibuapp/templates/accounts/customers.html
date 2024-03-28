@@ -8,7 +8,7 @@
         <div class="card card-body">
             <h5>Customers</h5>
             <hr>
-            <a class="btn btn-outline-info btn-sm btn-block" href="">update customer</a>
+            <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'update_customer' customer.id %}">update customer</a>
             <a class="btn btn-outline-danger btn-sm btn-block" href="">delete customer</a>
         </div>
     </div>
@@ -62,8 +62,8 @@
                 <td>{{order.product.category}}</td>
                 <td>{{order.date_created}}</td>
                 <td>{{order.status}}</td>
-                <td><a href="">update</a></td>
-                <td><a href="">delete</a></td>
+                <td><a class="btn btn-sm btn-secondary" href="{% url 'update_order' order.id%}">update</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id%}">delete</a></td>
                 
             </tr>
         {%endfor%}

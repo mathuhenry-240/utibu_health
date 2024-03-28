@@ -1,0 +1,14 @@
+{% extends 'index.html'%}
+% load static %}
+
+{%block content%}
+
+<p>Are you sure you want to delete {{item}}</p>
+
+<form action="{% url 'delete_order' item.id%}" method="post">
+    {%csrf_token%}
+    <a href="{% url 'dashboard' %}">cancel</a>
+
+    <input type="submit" value="confirm">
+</form>
+{% endblock %}

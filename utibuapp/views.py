@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from utibuapp.models import Customer,Product,Order
+from .forms import OrderForm,CustomerForm
 
 # Create your views here.
 
@@ -28,9 +29,76 @@ def customersView(request,pk):
     return render(request,'accounts/customers.html',context)
 
 
+def create_customer(request):
+    form = CustomerForm()
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+    context = {'form':form}
+    return render(request,'accounts/create_customer.html',context)
+
+def update_customer(request,pk):
+    customer = Customer.objects.get(id=pk)
+    form = CustomerForm(instance=customer)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST,instance=customer)
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+    context = {'form':form}
+    return render(request,'accounts/create_customer.html',context)
+
+def delete_customer(request,pk):
+    customer = Customer.objects.get(id=pk)
+    if request.method == 'POST':
+        customer.delete()
+        return redirect('dashboard')
+    context = {'customer':customer}
+    return render(request,'accounts/delete_customer.html',context)
 
 
 def productsView(request):
     products = Product.objects.all()
     context = {'products':products}
     return render(request,'accounts/products.html',context)
+
+
+def create_order(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        # print(request.POST)
+        form = OrderForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+        else:
+            return redirect('dashboard')
+
+    context = {'form':form}
+    return render(request,'accounts/order_form.html',context)
+
+def update_order(request,pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST,instance=order)
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+        else:
+            return redirect('dashboard')
+    context = {'form':form}
+    return render(request,'accounts/order_form.html',context)
+
+def delete_order(request,pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('dashboard')
+    
+    context={'item':order}
+    return render(request,'accounts/delete_form.html',context)
+
