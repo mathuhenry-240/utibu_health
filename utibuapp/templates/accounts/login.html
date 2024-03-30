@@ -14,7 +14,8 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #7abecc !important;
+			background: rgb(2,0,36);
+			background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,100,121,1) 35%, rgba(0,212,255,1) 100%);
 		}
 		.user_card {
 			width: 350px;
@@ -77,6 +78,7 @@
 </head>
 <body>
 	<div class="container h-100">
+		{% include 'accounts/messages.html'%}
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
@@ -86,17 +88,18 @@
 				</div>
 				<div class="d-flex justify-content-center form_container">
 					<form method="POST" action="">
+						{%csrf_token%}
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							{{form.username}}
+							<input type="text" name="username" placeholder="Username..." class="form-control">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-								{{form.password}}
+							<input type="password" name="password" placeholder="Password..." class="form-control" >
 						</div>
 
 							<div class="d-flex justify-content-center mt-3 login_container">
