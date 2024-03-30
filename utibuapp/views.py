@@ -1,9 +1,31 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from utibuapp.models import Customer,Product,Order
-from .forms import OrderForm,CustomerForm
+from .forms import OrderForm,CustomerForm,CreateUserForm
+from django.contrib import messages
+
 
 # Create your views here.
+
+def login_view(request):
+    context = {}
+    return render(request,'accounts/login.html',context)
+
+def register_view(request):
+    form = CreateUserForm()
+
+    if request.method =='POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid:
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request,'account was created for' + user)
+            return redirect('login')
+        else:
+            messages.warning(request,'account was not created')
+            return redirect('register')
+    context = {'form':form}
+    return render(request,'accounts/register.html',context)
 
 def dashboardView(request):
     customers = Customer.objects.all()

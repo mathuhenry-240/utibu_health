@@ -1,14 +1,18 @@
-{% extends 'index.html'%}
-% load static %}
+{% extends 'index.html'%} % load static %} {%block content%}
+<br />
+<div class="row">
+  <div class="col-md">
+    <div class="card card-body">
+      <p>Are you sure you want to delete {{customer}}</p>
 
-{%block content%}
+      <form action="{% url 'delete_customer' customer.id%}" method="post">
+        {%csrf_token%}
+        <a href="{% url 'dashboard' %}">cancel</a>
 
-<p>Are you sure you want to delete {{customer}}</p>
+        <input type="submit" value="confirm" />
+      </form>
+    </div>
+  </div>
+</div>
 
-<form action="{% url 'delete_customer' customer.id%}" method="post">
-    {%csrf_token%}
-    <a href="{% url 'dashboard' %}">cancel</a>
-
-    <input type="submit" value="confirm">
-</form>
 {% endblock %}

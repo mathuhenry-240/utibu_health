@@ -9,7 +9,7 @@
             <h5>Customers</h5>
             <hr>
             <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'update_customer' customer.id %}">update customer</a>
-            <a class="btn btn-outline-danger btn-sm btn-block" href="">delete customer</a>
+            <a class="btn btn-outline-danger btn-sm btn-block" href="{% url 'delete_customer' customer.id %}">delete customer</a>
         </div>
     </div>
     <div class="col-md">
