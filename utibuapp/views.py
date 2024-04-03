@@ -61,7 +61,7 @@ def userpage(request):
     return render(request,'accounts/userpage.html')
 
 @login_required(login_url='login')
-@admin_only
+
 def dashboardView(request):
     customers = Customer.objects.all()
     orders = Order.objects.all()
